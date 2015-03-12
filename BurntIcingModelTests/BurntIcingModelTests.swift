@@ -1,6 +1,6 @@
 //
-//  BurntIcingTests.swift
-//  BurntIcingTests
+//  BurntIcingModelTests.swift
+//  BurntIcingModelTests
 //
 //  Created by Patrick Smith on 14/02/2015.
 //  Copyright (c) 2015 Burnt Caramel. All rights reserved.
@@ -9,7 +9,7 @@
 import Cocoa
 import XCTest
 
-class BurntIcingTests: XCTestCase {
+class BurntIcingModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
