@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+    </dependencies>
+    <scenes>
+        <!--Editor View Controller-->
+        <scene sceneID="2IK-UQ-1Iz">
+            <objects>
+                <viewController storyboardIdentifier="Editor View Controller" id="lOR-rk-ZOz" customClass="EditorViewController" customModule="BurntIcing" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="IMy-jD-QFc">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="EOJ-Eq-5bL">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <connections>
+                                    <segue destination="nWe-1L-Tzu" kind="embed" identifier="webViewController" id="2xK-rR-SMZ"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="EOJ-Eq-5bL" firstAttribute="leading" secondItem="IMy-jD-QFc" secondAttribute="leading" id="Oa9-kK-7AF"/>
+                            <constraint firstAttribute="trailing" secondItem="EOJ-Eq-5bL" secondAttribute="trailing" id="Ugs-fy-zEL"/>
+                            <constraint firstItem="EOJ-Eq-5bL" firstAttribute="top" secondItem="IMy-jD-QFc" secondAttribute="top" id="hus-O1-HfO"/>
+                            <constraint firstAttribute="bottom" secondItem="EOJ-Eq-5bL" secondAttribute="bottom" id="vsd-RB-Sf3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="NaO-og-c6g" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="288" y="357"/>
+        </scene>
+        <!--Editor Web View Controller-->
+        <scene sceneID="zNs-iy-TL9">
+            <objects>
+                <viewController storyboardIdentifier="webViewController" id="nWe-1L-Tzu" customClass="EditorWebViewController" customModule="BurntIcing" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="5KY-5a-zk6">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="SOe-BC-AxO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="288" y="760"/>
+        </scene>
+    </scenes>
+</document>

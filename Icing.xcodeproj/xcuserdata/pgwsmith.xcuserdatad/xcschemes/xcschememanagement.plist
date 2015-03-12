@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>BurntIcingModel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Icing.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B2ED53A11A8F313D00F6B4FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B2ED53B51A8F313E00F6B4FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B2ED53D01A8F365800F6B4FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B2ED53DA1A8F365800F6B4FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
