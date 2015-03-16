@@ -117,13 +117,13 @@ class Document: NSDocument {
 	*/
 	
 	override func writeToURL(url: NSURL, ofType typeName: String, forSaveOperation saveOperation: NSSaveOperationType, originalContentsURL absoluteOriginalContentsURL: NSURL?, error outError: NSErrorPointer) -> Bool {
-		//let fileAttributes = fileAttributesToWriteToURL(url, ofType: typeName, forSaveOperation: saveOperation, originalContentsURL: absoluteOriginalContentsURL, error: outError)
 		
-		//println("Will unblockUserInteraction")
 		if let type = DocumentTypes(typeName: typeName) {
+			//println("Will unblockUserInteraction")
 			unblockUserInteraction()
 			
-			let lock = NSConditionLock(condition: 0)
+			let semaphore = dispatch_semaphore_create(0)
+			
 			var contentData: NSData? = nil
 			if let contentController = contentController {
 				if type == .IcingDocumentJSON {
@@ -131,9 +131,8 @@ class Document: NSDocument {
 					contentController.useLatestJSONDataOnMainQueue {
 						(latestContentData) in
 						contentData = latestContentData
-						//contentData = latestContentData?.copy() as? NSData
-						//println("Got latest content data \(contentData?.length)")
-						lock.unlockWithCondition(1)
+						
+						dispatch_semaphore_signal(semaphore)
 					}
 				}
 				else if type == .ExportedNakedHTML || type == .ExportedWrappedHTML {
@@ -150,34 +149,23 @@ class Document: NSDocument {
 							
 							contentData = previewHTMLString.dataUsingEncoding(NSUTF8StringEncoding)
 						}
-						lock.unlockWithCondition(1)
+
+						dispatch_semaphore_signal(semaphore)
 					}
 				}
 			}
 			
-			lock.lockWhenCondition(1)
-			//println("Lock got condition 1")
-			lock.unlock()
+			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
 			
-			let fileWrapper = NSFileWrapper(regularFileWithContents: contentData!)
-			
-			/*
-			// Complains for some reason
-			if fileAttributes != nil {
-			fileWrapper.fileAttributes = fileAttributes!
+			if let contentData = contentData {
+				let fileWrapper = NSFileWrapper(regularFileWithContents: contentData)
+				if fileWrapper.writeToURL(url, options: .Atomic, originalContentsURL: absoluteOriginalContentsURL, error: outError) {
+					return true
+				}
 			}
-			*/
-			
-			//println("Writing to URL \(url)")
-			if !fileWrapper.writeToURL(url, options: .Atomic, originalContentsURL: absoluteOriginalContentsURL, error: outError) {
-				return false
-			}
-			
-			return true
 		}
-		else {
-			return false
-		}
+
+		return false
 	}
 	
 	/*

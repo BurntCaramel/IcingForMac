@@ -65,6 +65,10 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		preferences.javaEnabled = false
 		preferences.plugInsEnabled = false
 		
+		#if DEBUG
+			preferences.setValue(true, forKey: "developerExtrasEnabled")
+		#endif
+		
 		let webViewConfiguration = WKWebViewConfiguration()
 		webViewConfiguration.preferences = preferences
 		
