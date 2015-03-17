@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B28EABC41AB81D62007F26E7 /* BundleLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EABC31AB81D62007F26E7 /* BundleLookup.swift */; };
+		B28EABC81AB81F3E007F26E7 /* icing-web in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC71AB81F3E007F26E7 /* icing-web */; };
 		B2A3F9131AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A3F9121AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m */; };
 		B2A3F9171AA552A200480222 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A3F9161AA552A200480222 /* DocumentWindowController.swift */; };
 		B2DEFAD41AB18A81003A08E8 /* wrapped-content-template.html in Resources */ = {isa = PBXBuildFile; fileRef = B2DEFAD31AB18A80003A08E8 /* wrapped-content-template.html */; };
@@ -75,6 +77,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B28EABC31AB81D62007F26E7 /* BundleLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleLookup.swift; sourceTree = "<group>"; };
+		B28EABC71AB81F3E007F26E7 /* icing-web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "icing-web"; sourceTree = "<group>"; };
 		B2A3F9101AA1791900480222 /* Icing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Icing-Bridging-Header.h"; sourceTree = "<group>"; };
 		B2A3F9111AA1791900480222 /* NSViewController+PGWSConstraintConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSViewController+PGWSConstraintConvenience.h"; sourceTree = "<group>"; };
 		B2A3F9121AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+PGWSConstraintConvenience.m"; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 				B2ED53CA1A8F342900F6B4FA /* Content.swift */,
 				B2DEFAD51AB18AC3003A08E8 /* HTMLTemplate.swift */,
 				B2ED53F21A8F389000F6B4FA /* EditorConfiguration.swift */,
+				B28EABC31AB81D62007F26E7 /* BundleLookup.swift */,
 				B2ED53D31A8F365800F6B4FA /* Supporting Files */,
 			);
 			path = BurntIcingModel;
@@ -229,6 +234,7 @@
 		B2ED53D31A8F365800F6B4FA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B28EABC71AB81F3E007F26E7 /* icing-web */,
 				B2DEFAD31AB18A80003A08E8 /* wrapped-content-template.html */,
 				B2ED53F61A8F3CED00F6B4FA /* editor-template.html */,
 				B2ED53D41A8F365800F6B4FA /* Info.plist */,
@@ -416,6 +422,7 @@
 			files = (
 				B2DEFAD41AB18A81003A08E8 /* wrapped-content-template.html in Resources */,
 				B2ED53F71A8F3CED00F6B4FA /* editor-template.html in Resources */,
+				B28EABC81AB81F3E007F26E7 /* icing-web in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +462,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2ED53F11A8F366200F6B4FA /* Content.swift in Sources */,
+				B28EABC41AB81D62007F26E7 /* BundleLookup.swift in Sources */,
 				B2ED53F31A8F389000F6B4FA /* EditorConfiguration.swift in Sources */,
 				B2DEFAD61AB18AC3003A08E8 /* HTMLTemplate.swift in Sources */,
 			);

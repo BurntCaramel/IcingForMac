@@ -9,16 +9,11 @@
 import Foundation
 
 
-internal class HTMLTemplateBundlePrincipleClass : NSObject {
-	
-}
-
-
 public struct HTMLTemplate {
 	let name: String
 	
 	public func copyHTMLStringWithPlaceholderValues(values: [String: String]) -> String {
-		let bundle = NSBundle(forClass: HTMLTemplateBundlePrincipleClass.self)
+		let bundle = NSBundle.bundleForBurntIcingModel()
 		let templateURL = bundle.URLForResource(name, withExtension: "html")!
 		let templateString = NSMutableString(contentsOfURL: templateURL, encoding: NSUTF8StringEncoding, error: nil)!
 		

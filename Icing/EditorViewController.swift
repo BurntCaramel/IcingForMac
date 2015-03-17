@@ -14,8 +14,8 @@ import BurntIcingModel
 class EditorViewController: NSViewController {
 	internal var webViewController: EditorWebViewController!
 	
-	//var editorConfiguration: EditorConfiguration = EditorConfiguration.burntCaramelHostedEditor
-	var editorConfiguration: EditorConfiguration = EditorConfiguration.burntCaramelDevEditor
+	var editorConfiguration: EditorConfiguration = EditorConfiguration.localEditorCopiedFromBundle!
+	//var editorConfiguration: EditorConfiguration = EditorConfiguration.burntCaramelDevEditor
 	
 	var minimumWidth: CGFloat = 700.0
 	var minimumHeight: CGFloat = 550.0
@@ -80,6 +80,7 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		webView.navigationDelegate = self
 		self.fillViewWithChildView(webView)
 		
+		println("Loading \(editorConfiguration.editorURL)")
 		let URLRequest = NSURLRequest(URL: editorConfiguration.editorURL)
 		webView.loadRequest(URLRequest)
 	}
