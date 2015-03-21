@@ -14,13 +14,13 @@ internal class EditorConfigurationBundleLookup : NSObject {
 
 
 public class EditorConfiguration {
-	//internal(set) public var editorURL: NSURL
 	public let editorURL: NSURL
 	
 	public init(editorURL: NSURL) {
 		self.editorURL = editorURL
 	}
 	
+	#if DEBUG
 	public class var burntCaramelHostedEditor: EditorConfiguration {
 		let editorURL = NSURL(string: "http://www.burntcaramel.com/icing/use/app.html")!
 		return EditorConfiguration(editorURL: editorURL)
@@ -36,6 +36,7 @@ public class EditorConfiguration {
 		let editorURL = NSURL(string: "file:///Users/pgwsmith/Work/Web%20Git/burnt-icing/dev/app.html")!
 		return EditorConfiguration(editorURL: editorURL)
 	}
+	#endif
 	
 	public class var localEditorCopiedFromBundle: EditorConfiguration? {
 		// http://jmduke.com/posts/singletons-in-swift/
@@ -77,6 +78,7 @@ public class EditorConfiguration {
 		return Static.instance
 	}
 	
+	#if false
 	var reactJSURL: NSURL {
 		get {
 			return NSURL(string: "https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js")!
@@ -113,4 +115,5 @@ public class EditorConfiguration {
 			return templateString.copy() as NSString
 		}
 	}
+	#endif
 }

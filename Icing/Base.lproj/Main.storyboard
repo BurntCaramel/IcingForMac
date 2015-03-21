@@ -343,7 +343,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Item" id="2YX-Sx-ikI">
+                            <menuItem title="Item" hidden="YES" id="2YX-Sx-ikI">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Item" id="Mjz-PZ-TUR">
                                     <items>
@@ -356,7 +356,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Section" id="snV-Lh-7rP">
+                            <menuItem title="Section" hidden="YES" id="snV-Lh-7rP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Section" id="5gT-5W-e4w">
                                     <items>
@@ -364,7 +364,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Preview" id="Yvm-IP-rP0">
+                            <menuItem title="Preview" hidden="YES" id="Yvm-IP-rP0">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Preview" id="jMa-8C-qN5">
                                     <items>
@@ -372,7 +372,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
+                            <menuItem title="View" hidden="YES" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>

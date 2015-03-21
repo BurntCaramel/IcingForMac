@@ -17,19 +17,12 @@ class EditorViewController: NSViewController {
 	var editorConfiguration: EditorConfiguration = EditorConfiguration.localEditorCopiedFromBundle!
 	//var editorConfiguration: EditorConfiguration = EditorConfiguration.burntCaramelDevEditor
 	
-	var minimumWidth: CGFloat = 700.0
-	var minimumHeight: CGFloat = 550.0
+	var minimumWidth: CGFloat = 600.0
+	var minimumHeight: CGFloat = 450.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		/*
-		let minimumWidth = 960.0
-		let minimumHeight = 400.0
-		
-		view.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: minimumWidth))
-		view.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: minimumHeight))
-*/
 		view.addConstraint(NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: minimumWidth))
 		view.addConstraint(NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: minimumHeight))
     }

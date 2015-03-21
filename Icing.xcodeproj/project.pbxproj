@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B28EABC41AB81D62007F26E7 /* BundleLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EABC31AB81D62007F26E7 /* BundleLookup.swift */; };
 		B28EABC81AB81F3E007F26E7 /* icing-web in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC71AB81F3E007F26E7 /* icing-web */; };
+		B28EABCA1AB864C8007F26E7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC91AB864C8007F26E7 /* Credits.rtf */; };
 		B2A3F9131AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A3F9121AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m */; };
 		B2A3F9171AA552A200480222 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A3F9161AA552A200480222 /* DocumentWindowController.swift */; };
 		B2DEFAD41AB18A81003A08E8 /* wrapped-content-template.html in Resources */ = {isa = PBXBuildFile; fileRef = B2DEFAD31AB18A80003A08E8 /* wrapped-content-template.html */; };
@@ -79,6 +80,7 @@
 /* Begin PBXFileReference section */
 		B28EABC31AB81D62007F26E7 /* BundleLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleLookup.swift; sourceTree = "<group>"; };
 		B28EABC71AB81F3E007F26E7 /* icing-web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "icing-web"; sourceTree = "<group>"; };
+		B28EABC91AB864C8007F26E7 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		B2A3F9101AA1791900480222 /* Icing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Icing-Bridging-Header.h"; sourceTree = "<group>"; };
 		B2A3F9111AA1791900480222 /* NSViewController+PGWSConstraintConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSViewController+PGWSConstraintConvenience.h"; sourceTree = "<group>"; };
 		B2A3F9121AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+PGWSConstraintConvenience.m"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				B2ED53A61A8F313D00F6B4FA /* Info.plist */,
+				B28EABC91AB864C8007F26E7 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				TargetAttributes = {
 					B2ED53A11A8F313D00F6B4FA = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 5278SPSAPR;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -406,6 +410,7 @@
 				B2ED53AE1A8F313D00F6B4FA /* Images.xcassets in Resources */,
 				B2ED53C71A8F31C600F6B4FA /* Editor.storyboard in Resources */,
 				B2ED53B11A8F313D00F6B4FA /* Main.storyboard in Resources */,
+				B28EABCA1AB864C8007F26E7 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +601,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Icing/Icing.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Icing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -612,6 +618,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Icing/Icing.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Icing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
