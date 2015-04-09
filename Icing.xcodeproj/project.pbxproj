@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B22B7D721AC108D80026AEDB /* IcingOpenSourceProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */; };
 		B28EABC41AB81D62007F26E7 /* BundleLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EABC31AB81D62007F26E7 /* BundleLookup.swift */; };
 		B28EABC81AB81F3E007F26E7 /* icing-web in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC71AB81F3E007F26E7 /* icing-web */; };
 		B28EABCA1AB864C8007F26E7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC91AB864C8007F26E7 /* Credits.rtf */; };
@@ -78,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcingOpenSourceProject.swift; sourceTree = "<group>"; };
 		B28EABC31AB81D62007F26E7 /* BundleLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleLookup.swift; sourceTree = "<group>"; };
 		B28EABC71AB81F3E007F26E7 /* icing-web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "icing-web"; sourceTree = "<group>"; };
 		B28EABC91AB864C8007F26E7 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				B2A3F9151AA548B300480222 /* Icing.entitlements */,
 				B2ED53A71A8F313D00F6B4FA /* AppDelegate.swift */,
+				B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */,
 				B2ED53AB1A8F313D00F6B4FA /* Document.swift */,
 				B2A3F9161AA552A200480222 /* DocumentWindowController.swift */,
 				B2ED53AF1A8F313D00F6B4FA /* Main.storyboard */,
@@ -447,6 +450,7 @@
 			files = (
 				B2ED53AA1A8F313D00F6B4FA /* ViewController.swift in Sources */,
 				B2ED53A81A8F313D00F6B4FA /* AppDelegate.swift in Sources */,
+				B22B7D721AC108D80026AEDB /* IcingOpenSourceProject.swift in Sources */,
 				B2A3F9171AA552A200480222 /* DocumentWindowController.swift in Sources */,
 				B2ED53AC1A8F313D00F6B4FA /* Document.swift in Sources */,
 				B2A3F9131AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m in Sources */,
@@ -601,7 +605,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Icing/Icing.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Icing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -618,7 +622,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Icing/Icing.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Icing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

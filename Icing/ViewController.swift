@@ -20,7 +20,7 @@ class ViewController: NSViewController {
 		//println("view did load from storyboard \(self.storyboard) parentViewController: \(self.parentViewController)")
 
 		let storyboard = NSStoryboard(name: "Editor", bundle: nil)!
-		editorViewController = storyboard.instantiateControllerWithIdentifier("Editor View Controller") as EditorViewController
+		editorViewController = storyboard.instantiateControllerWithIdentifier("Editor View Controller") as! EditorViewController
 		self.addChildViewController(editorViewController)
 		
 		//println("create editor view controller from storyboard \(storyboard)")
@@ -35,7 +35,5 @@ class ViewController: NSViewController {
 			}
 		}
 	}
-
-	
 }
 

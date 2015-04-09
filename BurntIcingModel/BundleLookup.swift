@@ -10,6 +10,7 @@ import Foundation
 
 
 internal class BurntIcingModelBundleClassLookup : NSObject {
+	// Used for NSBundle lookup below
 }
 
 public extension NSBundle {

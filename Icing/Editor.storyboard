@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
     </dependencies>
     <scenes>
         <!--Editor View Controller-->
         <scene sceneID="2IK-UQ-1Iz">
             <objects>
-                <viewController storyboardIdentifier="Editor View Controller" id="lOR-rk-ZOz" customClass="EditorViewController" customModule="BurntIcing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Editor View Controller" id="lOR-rk-ZOz" customClass="EditorViewController" customModule="Icing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="IMy-jD-QFc">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="900" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="EOJ-Eq-5bL">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="900" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="900" id="dVX-GN-paG"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="nWe-1L-Tzu" kind="embed" identifier="webViewController" id="2xK-rR-SMZ"/>
                                 </connections>
@@ -34,7 +37,7 @@
         <!--Editor Web View Controller-->
         <scene sceneID="zNs-iy-TL9">
             <objects>
-                <viewController storyboardIdentifier="webViewController" id="nWe-1L-Tzu" customClass="EditorWebViewController" customModule="BurntIcing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webViewController" id="nWe-1L-Tzu" customClass="EditorWebViewController" customModule="Icing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="5KY-5a-zk6">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>

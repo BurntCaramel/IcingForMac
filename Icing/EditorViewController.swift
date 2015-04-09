@@ -37,7 +37,7 @@ class EditorViewController: NSViewController {
 	
 	override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "webViewController" {
-			webViewController = segue.destinationController as EditorWebViewController
+			webViewController = segue.destinationController as! EditorWebViewController
 			prepareWebViewController(webViewController)
 		}
 	}
@@ -73,14 +73,18 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		webView.navigationDelegate = self
 		self.fillViewWithChildView(webView)
 		
-		println("Loading \(editorConfiguration.editorURL)")
+		#if DEBUG
+			println("Loading \(editorConfiguration.editorURL)")
+		#endif
 		let URLRequest = NSURLRequest(URL: editorConfiguration.editorURL)
 		webView.loadRequest(URLRequest)
 	}
 	
 	var contentController: DocumentContentController! {
 		didSet {
-			println("did set contentController \(webView.loading)")
+			#if DEBUG
+				println("did set contentController \(webView.loading)")
+			#endif
 			if !webView.loading {
 				self.setUpWithJSONContent()
 			}
@@ -90,7 +94,9 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 	var hasSetUpContent = false
 	
 	func setUpWithJSONContent() {
-		println("setUpWithJSONContent")
+		#if DEBUG
+			println("setUpWithJSONContent")
+		#endif
 		
 		if hasSetUpContent {
 			return
@@ -108,22 +114,28 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		contentController.useLatestJSONDataOnMainQueue { (contentJSONData) -> Void in
 			var javaScriptString: String!
 			
-			println("Using content JSON Data \(contentJSONData) to set up web view")
+			#if DEBUG
+				println("Using content JSON Data \(contentJSONData) to set up web view")
+			#endif
 			if contentJSONData != nil {
 				if let JSONString = NSString(data: contentJSONData!, encoding: NSUTF8StringEncoding) {
-					javaScriptString = "window.burntIcing.setInitialContentJSON(\(JSONString));"
+					javaScriptString = "window.burntIcing.setInitialDocumentJSON(\(JSONString));"
 					//let javaScriptString = "document.getElementsByTagName('body')[0].style.setProperty('background-color', 'red');"
 				}
 			}
 			
 			if javaScriptString == nil {
-				javaScriptString = "window.burntIcing.setInitialContentJSON(null);"
+				javaScriptString = "window.burntIcing.setInitialDocumentJSON(null);"
 			}
 			
-			println("JavaScript String \(javaScriptString)")
+			#if DEBUG
+				println("JavaScript String \(javaScriptString)")
+			#endif
 			
 			self.webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
-				println("error \(error)")
+				if error != nil {
+					println("error \(error)")
+				}
 			}
 			
 			self.contentController.editor = self
@@ -131,12 +143,17 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		}
 	}
 	
-	func useLatestContentJSONDataOnMainQueue(callback: (NSData?) -> Void) {
-		println("useLatestContentJSONDataOnMainQueue")
+	func useLatestDocumentJSONDataOnMainQueue(callback: (NSData?) -> Void) {
+		#if DEBUG
+			println("useLatestDocumentJSONDataOnMainQueue")
+		#endif
 		
-		let javaScriptString = "window.burntIcing.copyContentJSONForCurrentDocumentSection()"
+		//let javaScriptString = "window.burntIcing.copyContentJSONForCurrentDocumentSection()"
+		let javaScriptString = "window.burntIcing.copyJSONForCurrentDocument()"
 		
-		println("JavaScript String \(javaScriptString)")
+		#if DEBUG
+			println("JavaScript String \(javaScriptString)")
+		#endif
 		
 		webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
 			var contentJSONData: NSData?
@@ -156,9 +173,9 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 	
 	func usePreviewHTMLStringOnMainQueue(callback: (String?) -> Void) {
 		let javaScriptString = "window.burntIcing.copyPreviewHTMLForCurrentDocumentSection()"
-		
-		println("JavaScript String \(javaScriptString)")
-		
+		#if DEBUG
+			println("JavaScript String \(javaScriptString)")
+		#endif
 		webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
 			var previewHTMLString = result as? String
 			
@@ -177,12 +194,16 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 	}
 	
 	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-		println("didFinishNavigation")
+		#if DEBUG
+			println("didFinishNavigation")
+		#endif
 		self.setUpWithJSONContent()
 	}
 	
 	func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-		println("didReceiveScriptMessage \(message)")
+		#if DEBUG
+			println("didReceiveScriptMessage \(message)")
+		#endif
 		if message.name == EditorWebViewController_icingReceiveContentJSONMessageIdentifier {
 			if let messageBody = message.body as? [String: AnyObject] {
 				if let contentJSON = messageBody["contentJSON"] as? [String: AnyObject] {

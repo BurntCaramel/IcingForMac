@@ -36,7 +36,7 @@ public class Document {
 
 
 @objc public protocol DocumentContentEditor {
-	func useLatestContentJSONDataOnMainQueue(callback: (NSData?) -> Void)
+	func useLatestDocumentJSONDataOnMainQueue(callback: (NSData?) -> Void)
 	func usePreviewHTMLStringOnMainQueue(callback: (String?) -> Void)
 }
 
@@ -47,7 +47,7 @@ public class DocumentContentController {
 	
 	public init(JSONData: NSData?) {
 		if JSONData != nil {
-			self.JSONData = JSONData!.copy() as NSData
+			self.JSONData = JSONData!.copy() as! NSData
 		}
 	}
 	
@@ -56,10 +56,12 @@ public class DocumentContentController {
 	}
 	
 	public func useLatestJSONDataOnMainQueue(callback: (NSData?) -> Void) {
-		println("DocumentContentController useLatestJSONDataOnMainQueue")
+		#if DEBUG
+			println("DocumentContentController useLatestJSONDataOnMainQueue \(self.JSONData?.length)")
+		#endif
 		if let editor = editor {
 			NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-				editor.useLatestContentJSONDataOnMainQueue { (latestData) -> Void in
+				editor.useLatestDocumentJSONDataOnMainQueue { (latestData) -> Void in
 					callback(latestData)
 				}
 			}

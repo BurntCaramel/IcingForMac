@@ -60,6 +60,9 @@ class Document: NSDocument {
 	
 	// Blank new document
 	convenience init(type typeName: String, error outError: NSErrorPointer) {
+		#if DEBUG
+			NSLog("NEW DOCUMENT")
+		#endif
 		self.init()
 		
 		self.fileType = typeName
@@ -75,7 +78,7 @@ class Document: NSDocument {
 	override func makeWindowControllers() {
 		// Returns the Storyboard that contains your Document window.
 		let storyboard = NSStoryboard(name: "Main", bundle: nil)!
-		mainWindowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as DocumentWindowController
+		mainWindowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as! DocumentWindowController
 		
 		//println("created window controller \(mainWindowController) from storyboard \(storyboard)")
 		
@@ -181,7 +184,9 @@ class Document: NSDocument {
 			if type == .IcingDocumentJSON {
 				contentController = DocumentContentController(JSONData: data)
 				
-				println("set data in document")
+				#if DEBUG
+					println("set data in document")
+				#endif
 				//mainWindowController.DocumentJSONData = JSONData
 				
 				return true
@@ -189,12 +194,13 @@ class Document: NSDocument {
 		}
 		
 		// Type not handled:
-		
-		println(typeName)
 		// Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
 		// You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
 		// If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
 		outError.memory = NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+		
+		//fatalError(typeName)
+		
 		return false
 	}
 

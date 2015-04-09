@@ -17,7 +17,7 @@ public struct HTMLTemplate {
 		let templateURL = bundle.URLForResource(name, withExtension: "html")!
 		let templateString = NSMutableString(contentsOfURL: templateURL, encoding: NSUTF8StringEncoding, error: nil)!
 		
-		func replaceInTemplate(find target: NSString, replace replacement: NSString) {
+		func replaceInTemplate(find target: String, replace replacement: String) {
 			templateString.replaceOccurrencesOfString(target, withString: replacement, options: NSStringCompareOptions(0), range: NSMakeRange(0, templateString.length))
 		}
 		
@@ -25,6 +25,6 @@ public struct HTMLTemplate {
 			replaceInTemplate(find: placeholderID, replace: value)
 		}
 		
-		return templateString.copy() as NSString
+		return templateString as String
 	}
 }
