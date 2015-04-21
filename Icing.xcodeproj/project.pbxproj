@@ -147,13 +147,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B2A3F9141AA179C200480222 /* Categories */ = {
+		B2A3F9141AA179C200480222 /* UI Categories */ = {
 			isa = PBXGroup;
 			children = (
 				B2A3F9111AA1791900480222 /* NSViewController+PGWSConstraintConvenience.h */,
 				B2A3F9121AA1791900480222 /* NSViewController+PGWSConstraintConvenience.m */,
 			);
-			name = Categories;
+			name = "UI Categories";
 			sourceTree = "<group>";
 		};
 		B2ED53991A8F313D00F6B4FA = {
@@ -190,7 +190,7 @@
 				B2ED53A91A8F313D00F6B4FA /* ViewController.swift */,
 				B2ED53C61A8F31C600F6B4FA /* Editor.storyboard */,
 				B2ED53C81A8F325900F6B4FA /* EditorViewController.swift */,
-				B2A3F9141AA179C200480222 /* Categories */,
+				B2A3F9141AA179C200480222 /* UI Categories */,
 				B2ED53AD1A8F313D00F6B4FA /* Images.xcassets */,
 				B2ED53A51A8F313D00F6B4FA /* Supporting Files */,
 				B2A3F9101AA1791900480222 /* Icing-Bridging-Header.h */,
@@ -613,6 +613,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Icing/Icing-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 			};
 			name = Debug;
 		};
@@ -629,6 +630,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Icing/Icing-Bridging-Header.h";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 			};
 			name = Release;
 		};

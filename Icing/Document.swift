@@ -45,6 +45,15 @@ enum DocumentTypes {
 			return DocumentTypes.ExportedWrappedHTMLTypeName
 		}
 	}
+	
+	var isNativeType: Bool {
+		switch self {
+		case .IcingDocumentJSON:
+			return true
+		default:
+			return false
+		}
+	}
 }
 
 
@@ -72,7 +81,7 @@ class Document: NSDocument {
 
 	override class func autosavesInPlace() -> Bool {
 		// Currently asynchronous saving implementation below stuffs up 'Duplicate' action.
-		return false
+		return true
 	}
 
 	override func makeWindowControllers() {
@@ -87,6 +96,33 @@ class Document: NSDocument {
 		}
 		
 		self.addWindowController(mainWindowController)
+	}
+	
+	override class func isNativeType(aType: String) -> Bool {
+		if let type = DocumentTypes(typeName: aType) {
+			return type.isNativeType
+		}
+		else {
+			return false
+		}
+	}
+	
+	override class func readableTypes() -> [AnyObject] {
+		return [
+			DocumentTypes.IcingDocumentJSON.toString()
+		]
+	}
+	
+	override class func writableTypes() -> [AnyObject] {
+		return [
+			DocumentTypes.IcingDocumentJSON.toString(),
+			DocumentTypes.ExportedNakedHTML.toString(),
+			DocumentTypes.ExportedWrappedHTML.toString()
+		]
+	}
+	
+	override class func canConcurrentlyReadDocumentsOfType(typeName: String) -> Bool {
+		return true
 	}
 	
 	override func canAsynchronouslyWriteToURL(url: NSURL, ofType typeName: String, forSaveOperation saveOperation: NSSaveOperationType) -> Bool {
@@ -130,11 +166,14 @@ class Document: NSDocument {
 			var contentData: NSData? = nil
 			if let contentController = contentController {
 				if type == .IcingDocumentJSON {
-					//println("Will useLatestJSONDataOnMainQueue")
+					#if DEBUG
+						println("Will useLatestJSONDataOnMainQueue \(NSOperationQueue.currentQueue())")
+					#endif
 					contentController.useLatestJSONDataOnMainQueue {
 						(latestContentData) in
 						contentData = latestContentData
 						
+						println("Did useLatestJSONDataOnMainQueue")
 						dispatch_semaphore_signal(semaphore)
 					}
 				}
@@ -158,7 +197,20 @@ class Document: NSDocument {
 				}
 			}
 			
-			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+			// Wait for semaphore to signal by runnning run loop until it does
+			if NSOperationQueue.currentQueue() == NSOperationQueue.mainQueue() {
+				let runLoop = NSRunLoop.mainRunLoop()
+				while runLoop.runMode(NSDefaultRunLoopMode, beforeDate: NSDate.distantFuture() as! NSDate) {
+					let semaphoreSignalled = dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW) == 0
+					if semaphoreSignalled {
+						break
+					}
+				}
+			}
+			// Otherwise we are on a background queue as expected
+			else {
+				dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+			}
 			
 			if let contentData = contentData {
 				let fileWrapper = NSFileWrapper(regularFileWithContents: contentData)
@@ -214,22 +266,18 @@ class Document: NSDocument {
 		savePanel.extensionHidden = false
 		savePanel.nameFieldStringValue = displayName.stringByDeletingPathExtension + ".html"
 		
-		savePanel.nameFieldLabel = "Export HTML"
+		savePanel.nameFieldLabel = "Export HTML:"
 		savePanel.title = "Export HTML"
 		savePanel.prompt = "Export HTML"
 		
 		if let window = self.windowForSheet {
 			savePanel.beginSheetModalForWindow(window, completionHandler: { (result) -> Void in
-				if result == NSFileHandlingPanelOKButton {
-					if let URL = savePanel.URL {
-						var error: NSError?
-						//let success = self.writeSafelyToURL(URL, ofType: DocumentTypes.ExportedHTML.toString(), forSaveOperation: .SaveToOperation, error: &error)
-						self.saveToURL(URL, ofType: DocumentTypes.ExportedWrappedHTML.toString(), forSaveOperation: .SaveToOperation, completionHandler: { (error) -> Void in
-							if let error = error {
-								println("Error saving HTML \(error)")
-							}
-						})
-					}
+				if let URL = savePanel.URL where result == NSFileHandlingPanelOKButton {
+					self.saveToURL(URL, ofType: DocumentTypes.ExportedWrappedHTML.toString(), forSaveOperation: .SaveToOperation, completionHandler: { (error) -> Void in
+						if let error = error {
+							println("Error saving HTML \(error)")
+						}
+					})
 				}
 			})
 		}
