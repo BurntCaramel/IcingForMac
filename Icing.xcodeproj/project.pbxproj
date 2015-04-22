@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B22B7D721AC108D80026AEDB /* IcingOpenSourceProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */; };
+		B23E29E81AE73A9C009A94E5 /* console.js in Resources */ = {isa = PBXBuildFile; fileRef = B23E29E71AE73A9C009A94E5 /* console.js */; };
+		B23E29EE1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E29ED1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift */; };
 		B28EABC41AB81D62007F26E7 /* BundleLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EABC31AB81D62007F26E7 /* BundleLookup.swift */; };
 		B28EABC81AB81F3E007F26E7 /* icing-web in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC71AB81F3E007F26E7 /* icing-web */; };
 		B28EABCA1AB864C8007F26E7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B28EABC91AB864C8007F26E7 /* Credits.rtf */; };
@@ -80,6 +82,8 @@
 
 /* Begin PBXFileReference section */
 		B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcingOpenSourceProject.swift; sourceTree = "<group>"; };
+		B23E29E71AE73A9C009A94E5 /* console.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = console.js; sourceTree = "<group>"; };
+		B23E29ED1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKUserContentController+bundledScripts.swift"; sourceTree = "<group>"; };
 		B28EABC31AB81D62007F26E7 /* BundleLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleLookup.swift; sourceTree = "<group>"; };
 		B28EABC71AB81F3E007F26E7 /* icing-web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "icing-web"; sourceTree = "<group>"; };
 		B28EABC91AB864C8007F26E7 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 				B2ED53A91A8F313D00F6B4FA /* ViewController.swift */,
 				B2ED53C61A8F31C600F6B4FA /* Editor.storyboard */,
 				B2ED53C81A8F325900F6B4FA /* EditorViewController.swift */,
+				B23E29ED1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift */,
+				B23E29E71AE73A9C009A94E5 /* console.js */,
 				B2A3F9141AA179C200480222 /* UI Categories */,
 				B2ED53AD1A8F313D00F6B4FA /* Images.xcassets */,
 				B2ED53A51A8F313D00F6B4FA /* Supporting Files */,
@@ -414,6 +420,7 @@
 				B2ED53C71A8F31C600F6B4FA /* Editor.storyboard in Resources */,
 				B2ED53B11A8F313D00F6B4FA /* Main.storyboard in Resources */,
 				B28EABCA1AB864C8007F26E7 /* Credits.rtf in Resources */,
+				B23E29E81AE73A9C009A94E5 /* console.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +455,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B23E29EE1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift in Sources */,
 				B2ED53AA1A8F313D00F6B4FA /* ViewController.swift in Sources */,
 				B2ED53A81A8F313D00F6B4FA /* AppDelegate.swift in Sources */,
 				B22B7D721AC108D80026AEDB /* IcingOpenSourceProject.swift in Sources */,

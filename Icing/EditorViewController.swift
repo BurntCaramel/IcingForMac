@@ -67,6 +67,12 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		
 		let userContentController = WKUserContentController()
 		userContentController.addScriptMessageHandler(self, name: EditorWebViewController_icingReceiveContentJSONMessageIdentifier)
+
+		// console.log etc
+		userContentController.addBundledUserScript("console", injectAtStart: true)
+		userContentController.addScriptMessageHandler(self, name: "console")
+		
+		
 		webViewConfiguration.userContentController = userContentController
 		
 		webView = WKWebView(frame: NSRect.zeroRect, configuration: webViewConfiguration)
@@ -114,7 +120,7 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		contentController.useLatestJSONDataOnMainQueue { (contentJSONData) -> Void in
 			var javaScriptString: String!
 			
-			#if DEBUG
+			#if DEBUG && false
 				println("Using content JSON Data \(contentJSONData) to set up web view")
 			#endif
 			if contentJSONData != nil {
@@ -128,7 +134,7 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 				javaScriptString = "window.burntIcing.setInitialDocumentJSON(null);"
 			}
 			
-			#if DEBUG
+			#if DEBUG && false
 				println("JavaScript String \(javaScriptString)")
 			#endif
 			
@@ -148,7 +154,6 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 			println("useLatestDocumentJSONDataOnMainQueue")
 		#endif
 		
-		//let javaScriptString = "window.burntIcing.copyContentJSONForCurrentDocumentSection()"
 		let javaScriptString = "window.burntIcing.copyJSONForCurrentDocument()"
 		
 		#if DEBUG
@@ -210,6 +215,19 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 					//latestCopiedJSONData = NSJSONSerialization.dataWithJSONObject(contentJSON, options: NSJSONWritingOptions(0), error: nil)
 				}
 			}
+		}
+		else if message.name == "console" {
+			#if DEBUG
+			println("CONSOLE")
+			if let messageBody = message.body as? [String: AnyObject] {
+				println("CONSOLE \(messageBody)")
+			}
+			#endif
+		}
+		else {
+			#if DEBUG
+			println("Unhandled script message \(message.name)")
+			#endif
 		}
 	}
 }
