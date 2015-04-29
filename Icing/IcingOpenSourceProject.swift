@@ -11,19 +11,21 @@ import Cocoa
 
 enum IcingOpenSourceProject {
 	case IcingEditor
+	case Specs
 	case IcingPHP
 	
 	var URL: NSURL {
 		switch self {
 		case .IcingEditor:
 			return NSURL(string: "https://github.com/BurntIcing/IcingEditor")!
+		case .Specs:
+			return NSURL(string: "https://github.com/BurntIcing/Specs")!
 		case .IcingPHP:
 			return NSURL(string: "https://github.com/BurntIcing/IcingPHP")!
 		}
 	}
 	
 	func openURL() {
-		let URL = self.URL
 		NSWorkspace.sharedWorkspace().openURL(URL)
 	}
 }

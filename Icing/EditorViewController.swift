@@ -160,7 +160,7 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 			println("JavaScript String \(javaScriptString)")
 		#endif
 		
-		webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
+		webView.evaluateJavaScript(javaScriptString) { (result, error) in
 			var contentJSONData: NSData?
 			
 			if let contentJSON: AnyObject = result {
@@ -170,9 +170,9 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 				println("error \(error)")
 			}
 			
-			NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+			NSOperationQueue.mainQueue().addOperationWithBlock {
 				callback(contentJSONData)
-			})
+			}
 		}
 	}
 	
@@ -181,16 +181,16 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		#if DEBUG
 			println("JavaScript String \(javaScriptString)")
 		#endif
-		webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
+		webView.evaluateJavaScript(javaScriptString) { (result, error) in
 			var previewHTMLString = result as? String
 			
 			if previewHTMLString == nil {
 				println("error \(error)")
 			}
 			
-			NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+			NSOperationQueue.mainQueue().addOperationWithBlock {
 				callback(previewHTMLString)
-			})
+			}
 		}
 	}
 	
@@ -218,15 +218,15 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		}
 		else if message.name == "console" {
 			#if DEBUG
-			println("CONSOLE")
-			if let messageBody = message.body as? [String: AnyObject] {
-				println("CONSOLE \(messageBody)")
-			}
+				println("CONSOLE")
+				if let messageBody = message.body as? [String: AnyObject] {
+					println("CONSOLE \(messageBody)")
+				}
 			#endif
 		}
 		else {
 			#if DEBUG
-			println("Unhandled script message \(message.name)")
+				println("Unhandled script message \(message.name)")
 			#endif
 		}
 	}

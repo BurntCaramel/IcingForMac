@@ -26,6 +26,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		IcingOpenSourceProject.IcingEditor.openURL()
 	}
 	
+	@IBAction func openIcingSpecsOnGitHub(sender: AnyObject) {
+		IcingOpenSourceProject.Specs.openURL()
+	}
+	
 	@IBAction func openIcingPHPLibraryOnGitHub(sender: AnyObject) {
 		IcingOpenSourceProject.IcingPHP.openURL()
 	}
