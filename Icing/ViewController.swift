@@ -17,7 +17,7 @@ class ViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		//println("view did load from storyboard \(self.storyboard) parentViewController: \(self.parentViewController)")
+		println("view did load from storyboard \(self.storyboard) parentViewController: \(self.parentViewController)")
 
 		let storyboard = NSStoryboard(name: "Editor", bundle: nil)!
 		editorViewController = storyboard.instantiateControllerWithIdentifier("Editor View Controller") as! EditorViewController

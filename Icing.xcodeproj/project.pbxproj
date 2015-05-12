@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B228761E1AF1C88C00A8A4A2 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228761D1AF1C88C00A8A4A2 /* Either.swift */; };
+		B22876201AF1CC9B00A8A4A2 /* NSStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228761F1AF1CC9B00A8A4A2 /* NSStringExtensions.swift */; };
+		B22876221AF1DED000A8A4A2 /* ready.js in Resources */ = {isa = PBXBuildFile; fileRef = B22876211AF1DED000A8A4A2 /* ready.js */; };
 		B22B7D721AC108D80026AEDB /* IcingOpenSourceProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */; };
 		B23E29E81AE73A9C009A94E5 /* console.js in Resources */ = {isa = PBXBuildFile; fileRef = B23E29E71AE73A9C009A94E5 /* console.js */; };
 		B23E29EE1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E29ED1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift */; };
@@ -81,6 +84,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B228761D1AF1C88C00A8A4A2 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
+		B228761F1AF1CC9B00A8A4A2 /* NSStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringExtensions.swift; sourceTree = "<group>"; };
+		B22876211AF1DED000A8A4A2 /* ready.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ready.js; sourceTree = "<group>"; };
 		B22B7D711AC108D80026AEDB /* IcingOpenSourceProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcingOpenSourceProject.swift; sourceTree = "<group>"; };
 		B23E29E71AE73A9C009A94E5 /* console.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = console.js; sourceTree = "<group>"; };
 		B23E29ED1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKUserContentController+bundledScripts.swift"; sourceTree = "<group>"; };
@@ -196,6 +202,7 @@
 				B2ED53C81A8F325900F6B4FA /* EditorViewController.swift */,
 				B23E29ED1AE74018009A94E5 /* WKUserContentController+bundledScripts.swift */,
 				B23E29E71AE73A9C009A94E5 /* console.js */,
+				B22876211AF1DED000A8A4A2 /* ready.js */,
 				B2A3F9141AA179C200480222 /* UI Categories */,
 				B2ED53AD1A8F313D00F6B4FA /* Images.xcassets */,
 				B2ED53A51A8F313D00F6B4FA /* Supporting Files */,
@@ -234,6 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				B2ED53D51A8F365800F6B4FA /* BurntIcingModel.h */,
+				B228761D1AF1C88C00A8A4A2 /* Either.swift */,
+				B228761F1AF1CC9B00A8A4A2 /* NSStringExtensions.swift */,
 				B2ED53CA1A8F342900F6B4FA /* Content.swift */,
 				B2DEFAD51AB18AC3003A08E8 /* HTMLTemplate.swift */,
 				B2ED53F21A8F389000F6B4FA /* EditorConfiguration.swift */,
@@ -420,6 +429,7 @@
 				B2ED53C71A8F31C600F6B4FA /* Editor.storyboard in Resources */,
 				B2ED53B11A8F313D00F6B4FA /* Main.storyboard in Resources */,
 				B28EABCA1AB864C8007F26E7 /* Credits.rtf in Resources */,
+				B22876221AF1DED000A8A4A2 /* ready.js in Resources */,
 				B23E29E81AE73A9C009A94E5 /* console.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,7 +491,9 @@
 				B2ED53F11A8F366200F6B4FA /* Content.swift in Sources */,
 				B28EABC41AB81D62007F26E7 /* BundleLookup.swift in Sources */,
 				B2ED53F31A8F389000F6B4FA /* EditorConfiguration.swift in Sources */,
+				B22876201AF1CC9B00A8A4A2 /* NSStringExtensions.swift in Sources */,
 				B2DEFAD61AB18AC3003A08E8 /* HTMLTemplate.swift in Sources */,
+				B228761E1AF1C88C00A8A4A2 /* Either.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

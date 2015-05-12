@@ -14,8 +14,8 @@ import BurntIcingModel
 class EditorViewController: NSViewController {
 	internal var webViewController: EditorWebViewController!
 	
-	var editorConfiguration: EditorConfiguration = EditorConfiguration.localEditorCopiedFromBundle!
-	//var editorConfiguration: EditorConfiguration = EditorConfiguration.burntCaramelDevEditor
+	var editorConfiguration = EditorConfiguration.localEditorCopiedFromBundle
+	//var editorConfiguration: EditorConfiguration? = EditorConfiguration.burntCaramelDevEditor
 	
 	var minimumWidth: CGFloat = 600.0
 	var minimumHeight: CGFloat = 450.0
@@ -28,11 +28,21 @@ class EditorViewController: NSViewController {
     }
 	
 	func prepareWebViewController(webViewController: EditorWebViewController) {
-		webViewController.setUpWebViewWithEditorConfiguration(editorConfiguration)
+		if let editorConfiguration = editorConfiguration {
+			webViewController.setUpWebViewWithEditorConfiguration(editorConfiguration)
+		}
+		else if let error = EditorConfiguration.errorCreatingLocalEditorCopiedFromBundle {
+			NSApp.presentError(error)
+		}
+		else {
+			fatalError("No error provided")
+		}
 	}
 	
 	func setContentController(contentController: DocumentContentController) {
-		webViewController.contentController = contentController
+		if webViewController.hasSetUp {
+			webViewController.contentController = contentController
+		}
 	}
 	
 	override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
@@ -47,9 +57,19 @@ class EditorViewController: NSViewController {
 let EditorWebViewController_icingReceiveContentJSONMessageIdentifier = "icingReceiveContentJSON"
 
 class EditorWebViewController: NSViewController, DocumentContentEditor, WKNavigationDelegate, WKScriptMessageHandler {
-	internal var editorConfiguration: EditorConfiguration!
-	internal var webView: WKWebView!
-	internal var latestCopiedJSONData: NSData!
+	enum MessageIdentifier: String {
+		case Ready = "ready"
+		case IcingReceiveContentJSON = "icingReceiveContentJSON"
+		case Console = "console"
+	}
+	
+	
+	var editorConfiguration: EditorConfiguration!
+	var hasSetUp: Bool {
+		return editorConfiguration != nil
+	}
+	var webView: WKWebView!
+	var latestCopiedJSONData: NSData!
 	
 	func setUpWebViewWithEditorConfiguration(editorConfiguration: EditorConfiguration) {
 		self.editorConfiguration = editorConfiguration
@@ -66,12 +86,27 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		webViewConfiguration.preferences = preferences
 		
 		let userContentController = WKUserContentController()
-		userContentController.addScriptMessageHandler(self, name: EditorWebViewController_icingReceiveContentJSONMessageIdentifier)
-
+		userContentController.addScriptMessageHandler(self, name: MessageIdentifier.IcingReceiveContentJSON.rawValue)
+		userContentController.addScriptMessageHandler(self, name: MessageIdentifier.Ready.rawValue)
+		
+		userContentController.addBundledUserScript("ready", injectAtEnd: true)
+		
 		// console.log etc
 		userContentController.addBundledUserScript("console", injectAtStart: true)
 		userContentController.addScriptMessageHandler(self, name: "console")
 		
+		println("editorConfiguration \(editorConfiguration)")
+		switch editorConfiguration {
+		case .SourceCode(_, let javaScriptSources):
+			//userContentController.addBundledUserScript("icingInit", injectAtStart: true)
+			
+			for javaScriptSource in javaScriptSources {
+				let userScript = WKUserScript(source: javaScriptSource, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+				userContentController.addUserScript(userScript)
+			}
+		default:
+			break
+		}
 		
 		webViewConfiguration.userContentController = userContentController
 		
@@ -79,11 +114,20 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		webView.navigationDelegate = self
 		self.fillViewWithChildView(webView)
 		
-		#if DEBUG
-			println("Loading \(editorConfiguration.editorURL)")
-		#endif
-		let URLRequest = NSURLRequest(URL: editorConfiguration.editorURL)
-		webView.loadRequest(URLRequest)
+		switch editorConfiguration {
+		case .URL(let editorURL):
+			#if DEBUG
+				//println("Loading \(editorConfiguration.editorURL)")
+			#endif
+			let URLRequest = NSURLRequest(URL: editorURL)
+			webView.loadRequest(URLRequest)
+		case .SourceCode(let HTMLSource, _):
+			#if DEBUG
+				//println("Loading \(HTMLSource)")
+			#endif
+			webView.loadHTMLString(HTMLSource, baseURL: nil)
+			//webView.loadHTMLString("<!doctype html><html><body style='background-color: yellow;'><div id=\"burntIcingEditor\"></div><script>window.webkit.messageHandlers.console.postMessage('script '+String(document.body.children.length));</script></body></html>", baseURL: nil)
+		}
 	}
 	
 	var contentController: DocumentContentController! {
@@ -92,7 +136,7 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 				println("did set contentController \(webView.loading)")
 			#endif
 			if !webView.loading {
-				self.setUpWithJSONContent()
+				//self.setUpWithJSONContent()
 			}
 		}
 	}
@@ -112,11 +156,6 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 			return
 		}
 		
-		// TODO: escape IDs properly
-		
-		var documentID = "untitled"
-		var sectionID = "main"
-		
 		contentController.useLatestJSONDataOnMainQueue { (contentJSONData) -> Void in
 			var javaScriptString: String!
 			
@@ -131,13 +170,29 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 			}
 			
 			if javaScriptString == nil {
+				//javaScriptString = "setTimeout(function() {document.body.appendChild(document.createElement('hr'));}, 1)"
+				//javaScriptString = "document.body.appendChild('HELLO');"
 				javaScriptString = "window.burntIcing.setInitialDocumentJSON(null);"
+				//javaScriptString = "window.requestAnimationFrame(function() {window.burntIcing.setInitialDocumentJSON(null);})"
+				//javaScriptString = "console.log(document.body.innerHTML);"
+				//javaScriptString = "window.console.log('hello, is it me you are looking for?');"
+				//javaScriptString = "window.webkit.messageHandlers.console.postMessage('hello, is it me you are looking for?');"
+				//javaScriptString = "window.webkit.messageHandlers.console.postMessage(String(document.body.children.length));"
 			}
 			
 			#if DEBUG && false
 				println("JavaScript String \(javaScriptString)")
 			#endif
 			
+			//javaScriptString = "console.log('setInitialDocumentJSON');"
+			//javaScriptString = "callWhenDocumentLoaded(function {\n\n});"
+			//javaScriptString = "callWhenDocumentLoaded(function {\n\(javaScriptString)\n})"
+			//javaScriptString = "console.log('setInitialDocumentJSON');"
+			//javaScriptString = "document.getElementById('burntIcingEditor').setAttribute('style', 'background-color: red');"
+			//javaScriptString = "try{this;}\ncatch(e){}"
+			//javaScriptString = "console.log('SCRIPT ELEMENTS', '' + document.getElementsByTagName('script').length);"
+			println("webView.evaluateJavaScript: \(javaScriptString)")
+			//return;
 			self.webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
 				if error != nil {
 					println("error \(error)")
@@ -202,32 +257,41 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		#if DEBUG
 			println("didFinishNavigation")
 		#endif
-		self.setUpWithJSONContent()
+		//self.setUpWithJSONContent()
 	}
 	
 	func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
 		#if DEBUG
 			println("didReceiveScriptMessage \(message)")
 		#endif
-		if message.name == EditorWebViewController_icingReceiveContentJSONMessageIdentifier {
-			if let messageBody = message.body as? [String: AnyObject] {
-				if let contentJSON = messageBody["contentJSON"] as? [String: AnyObject] {
-					//latestCopiedJSONData = NSJSONSerialization.dataWithJSONObject(contentJSON, options: NSJSONWritingOptions(0), error: nil)
-				}
-			}
-		}
-		else if message.name == "console" {
-			#if DEBUG
-				println("CONSOLE")
+		if let messageIdentifier = MessageIdentifier(rawValue: message.name) {
+			switch messageIdentifier {
+			case .Ready:
+				#if DEBUG
+					println("READY")
+				#endif
+				self.setUpWithJSONContent()
+			case .IcingReceiveContentJSON:
 				if let messageBody = message.body as? [String: AnyObject] {
-					println("CONSOLE \(messageBody)")
+					if let contentJSON = messageBody["contentJSON"] as? [String: AnyObject] {
+						//latestCopiedJSONData = NSJSONSerialization.dataWithJSONObject(contentJSON, options: NSJSONWritingOptions(0), error: nil)
+					}
 				}
-			#endif
-		}
-		else {
-			#if DEBUG
-				println("Unhandled script message \(message.name)")
-			#endif
+			case .Console:
+				#if DEBUG
+					println("CONSOLE")
+					if let messageBody = message.body as? [String: AnyObject] {
+						println("\(messageBody)")
+					}
+					else if let messageBody = message.body as? String {
+						println(messageBody)
+					}
+				#endif
+			default:
+				#if DEBUG
+					println("Unhandled script message \(message.name)")
+				#endif
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@
 	function consoleMessage(type, messageArguments) {
 		window.webkit.messageHandlers.console.postMessage({
 			type: type,
-			'arguments': JSON.stringify(messageArguments),
+			'arguments': JSON.stringify([].slice.call(messageArguments)),
 			'trace': trace()
 		});
 	}
