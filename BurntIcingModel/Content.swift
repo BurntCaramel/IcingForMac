@@ -38,6 +38,7 @@ public class Document {
 @objc public protocol DocumentContentEditor {
 	func useLatestDocumentJSONDataOnMainQueue(callback: (NSData?) -> Void)
 	func usePreviewHTMLStringOnMainQueue(callback: (String?) -> Void)
+	func usePageSourceHTMLStringOnMainQueue(callback: (String?) -> Void) // For debugging
 }
 
 
@@ -80,6 +81,26 @@ public class DocumentContentController {
 			block = {
 				editor.usePreviewHTMLStringOnMainQueue { (previewHTMLString) -> Void in
 					callback(previewHTMLString)
+				}
+			}
+		}
+		else {
+			block = {
+				callback(nil)
+			}
+		}
+		
+		// Make sure it is always asynchronous.
+		NSOperationQueue.mainQueue().addOperationWithBlock(block)
+	}
+	
+	public func usePageSourceHTMLStringOnMainQueue(callback: (String?) -> Void) {
+		var block: () -> Void
+		
+		if let editor = editor {
+			block = {
+				editor.usePageSourceHTMLStringOnMainQueue { (sourceHTMLString) -> Void in
+					callback(sourceHTMLString)
 				}
 			}
 		}

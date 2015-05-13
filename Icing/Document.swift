@@ -256,7 +256,7 @@ class Document: NSDocument {
 		return false
 	}
 
-	@IBAction func exportHTMLPreview(sender: AnyObject) {
+	@IBAction func exportHTMLPreview(sender: AnyObject?) {
 		let savePanel = NSSavePanel()
 		//savePanel.allowedFileTypes = [kUTTypeHTML]
 		savePanel.allowedFileTypes = ["html"]
@@ -280,6 +280,16 @@ class Document: NSDocument {
 					})
 				}
 			})
+		}
+	}
+	
+	@IBAction func debugCopyPageSource(sender: AnyObject?) {
+		contentController.usePageSourceHTMLStringOnMainQueue { (pageSourceHTMLString) in
+			if let pageSourceHTMLString = pageSourceHTMLString {
+				let pb = NSPasteboard.generalPasteboard()
+				pb.declareTypes([NSStringPboardType], owner: nil)
+				pb.setString(pageSourceHTMLString, forType: NSStringPboardType)
+			}
 		}
 	}
 }

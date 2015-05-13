@@ -170,29 +170,13 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 			}
 			
 			if javaScriptString == nil {
-				//javaScriptString = "setTimeout(function() {document.body.appendChild(document.createElement('hr'));}, 1)"
-				//javaScriptString = "document.body.appendChild('HELLO');"
 				javaScriptString = "window.burntIcing.setInitialDocumentJSON(null);"
-				//javaScriptString = "window.requestAnimationFrame(function() {window.burntIcing.setInitialDocumentJSON(null);})"
-				//javaScriptString = "console.log(document.body.innerHTML);"
-				//javaScriptString = "window.console.log('hello, is it me you are looking for?');"
-				//javaScriptString = "window.webkit.messageHandlers.console.postMessage('hello, is it me you are looking for?');"
-				//javaScriptString = "window.webkit.messageHandlers.console.postMessage(String(document.body.children.length));"
 			}
 			
 			#if DEBUG && false
 				println("JavaScript String \(javaScriptString)")
 			#endif
 			
-			//javaScriptString = "console.log('setInitialDocumentJSON');"
-			//javaScriptString = "callWhenDocumentLoaded(function {\n\n});"
-			//javaScriptString = "callWhenDocumentLoaded(function {\n\(javaScriptString)\n})"
-			//javaScriptString = "console.log('setInitialDocumentJSON');"
-			//javaScriptString = "document.getElementById('burntIcingEditor').setAttribute('style', 'background-color: red');"
-			//javaScriptString = "try{this;}\ncatch(e){}"
-			//javaScriptString = "console.log('SCRIPT ELEMENTS', '' + document.getElementsByTagName('script').length);"
-			println("webView.evaluateJavaScript: \(javaScriptString)")
-			//return;
 			self.webView.evaluateJavaScript(javaScriptString) { (result, error) -> Void in
 				if error != nil {
 					println("error \(error)")
@@ -249,6 +233,24 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 		}
 	}
 	
+	func usePageSourceHTMLStringOnMainQueue(callback: (String?) -> Void) {
+		let javaScriptString = "document.body.innerHTML"
+		#if DEBUG
+			println("JavaScript String \(javaScriptString)")
+		#endif
+		webView.evaluateJavaScript(javaScriptString) { (result, error) in
+			var sourceHTMLString = result as? String
+			
+			if sourceHTMLString == nil {
+				println("error \(error)")
+			}
+			
+			NSOperationQueue.mainQueue().addOperationWithBlock {
+				callback(sourceHTMLString)
+			}
+		}
+	}
+	
 	@IBAction func reload(sender: AnyObject) {
 		webView.reload()
 	}
@@ -281,7 +283,12 @@ class EditorWebViewController: NSViewController, DocumentContentEditor, WKNaviga
 				#if DEBUG
 					println("CONSOLE")
 					if let messageBody = message.body as? [String: AnyObject] {
-						println("\(messageBody)")
+						if messageBody["type"] as? String == "log" {
+							println(messageBody["arguments"])
+						}
+						else {
+							println("\(messageBody)")
+						}
 					}
 					else if let messageBody = message.body as? String {
 						println(messageBody)

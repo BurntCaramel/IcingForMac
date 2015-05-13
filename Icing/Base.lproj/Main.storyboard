@@ -37,7 +37,7 @@
                                                             <action selector="openIcingSpecsOnGitHub:" target="Voe-Tx-rLC" id="SVc-ZY-09a"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="The Icing Editor" id="pQl-4u-MS5">
+                                                    <menuItem title="Editor" id="pQl-4u-MS5">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="openIcingEditorOnGitHub:" target="Ady-hI-5gd" id="Tbh-QA-wqs"/>
@@ -467,6 +467,20 @@
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="JRC-js-e6W"/>
+                                        <menuItem title="Debug" id="yRd-S3-SbY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Debug" id="DMI-x5-kbs">
+                                                <items>
+                                                    <menuItem title="Copy Icing Editor Page Source" tag="1" id="miW-uL-uZv">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugCopyPageSource:" target="Ady-hI-5gd" id="3xk-Ut-sRX"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                     </items>
                                 </menu>
